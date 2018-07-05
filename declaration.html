@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Declaration of Independence</title>
+  <style type="text/css">
+    .puzzle {
+	background-image:url(United_States_Declaration_of_Independence.jpg);
+	width: 200px;
+	height: 80px;
+	display: inline-block;
+    }
+    #original { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+  <template id="apiece"><div class="puzzle">&nbsp;</div></template>
+  <div>Original:<br>
+    <img id="original" src="United_States_Declaration_of_Independence.jpg">
+  </div>
+  <a href="https://en.wikipedia.org/wiki/United_States_Declaration_of_Independence">United States Declaration of Independence on Wikipedia</a>
+  <script>
+    var t = document.querySelector('#apiece');
+    var c = document.querySelector("#content");
+    function setPieces() {
+      if ('content' in document.createElement('template')) {
+	var leftMargin = 165;
+	var rightMargin = 3765;
+	var firstLine = 641;
+	var pWidth = 20;
+	var pHeight = 80;
+	var y = firstLine;
+	for (j = 0; j < 61; j++) {
+	  var x = leftMargin;
+	  while (x < rightMargin) {
+	    setPiece(x, y, pWidth, pHeight);
+	    x += pWidth;
+	  }
+	  //c.appendChild(document.createElement("div")); 
+	  y += pHeight - 16;
+	}
+      } else {
+	alert("HTML templates not implemented by this browser");
+      }
+    }
+    function setPiece(x, y, w, h) {
+      var clone = document.importNode(t.content, true);
+      var p = clone.querySelector('div');
+      // p.innerText = 'text';
+      p.style.backgroundPosition = '-'+x+'px -'+y+'px';
+      p.style.width = w+'px';
+      p.style.height = h+'px';
+      c.appendChild(clone);
+    }
+    setPieces();
+  </script>  
+</body>
+</html>
